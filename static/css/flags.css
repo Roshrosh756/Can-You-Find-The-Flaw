@@ -1,0 +1,173 @@
+/* ===== Captured Flags Header Widget ===== */
+.flags-widget {
+  position: relative;
+}
+
+.flags-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  padding: 6px 13px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.flags-btn:hover,
+.flags-btn.open {
+  border-color: var(--red);
+  color: var(--text);
+}
+
+.flags-btn svg {
+  color: var(--red);
+  flex-shrink: 0;
+}
+
+.flags-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 340px;
+  max-width: min(90vw, 340px);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  z-index: 60;
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.flags-dropdown.show {
+  display: flex;
+}
+
+.flags-dropdown-header {
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+  padding: 2px 2px 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.flags-empty {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  padding: 12px 2px;
+  text-align: center;
+}
+
+.flag-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 9px 10px;
+}
+
+.flag-item-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.flag-item-part {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--red);
+}
+
+.flag-item-value {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--text);
+  word-break: break-all;
+  white-space: normal;
+  line-height: 1.4;
+  user-select: all;
+}
+
+.flag-item-copy {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  border-radius: 5px;
+  padding: 3px 9px;
+  cursor: pointer;
+  font-size: 0.6rem;
+  font-family: var(--mono);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.flag-item-copy:hover {
+  border-color: var(--red);
+  color: var(--text);
+}
+
+/* ===== Per-part flag submission box ===== */
+.flag-submit-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.flag-submit-row input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+}
+
+.flag-submit-row input:focus {
+  outline: none;
+  border-color: var(--red);
+}
+
+.flag-submit-row input:disabled {
+  opacity: 0.5;
+}
+
+.flag-submit-row button {
+  white-space: nowrap;
+}
+
+.submit-response {
+  margin-top: 8px;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+}
+
+.submit-response.ok { color: var(--red); }
+.submit-response.err { color: #f87171; }
+
+.status-solved {
+  color: var(--red);
+  font-weight: 700;
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+}

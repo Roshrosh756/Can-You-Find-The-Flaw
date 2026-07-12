@@ -1,0 +1,130 @@
+{% include 'header.html' %}
+
+<!-- ===== FULL COMPLETION BANNER (no prize claim, just an acknowledgement) ===== -->
+<div class="achievement-overlay" id="achievementOverlay">
+  <div class="achievement-card" id="achievementCard">
+    <div class="confetti-container" id="confettiContainer"></div>
+    <span class="achievement-emoji" id="achievementEmoji">🎉</span>
+    <h2 class="achievement-title" id="achievementTitle">ALL 3 PARTS COMPLETE!</h2>
+    <p class="achievement-sub" id="achievementSub">You found every flaw. Nice work.</p>
+    <div class="achievement-stats">
+      <div class="achievement-stat">
+        <span class="num" id="achStagesSolved">3</span>
+        <span class="label">Parts Solved</span>
+      </div>
+    </div>
+    <button class="achievement-btn" id="achievementBtn">CONTINUE</button>
+  </div>
+</div>
+
+<!-- MAIN GAME CONTAINER -->
+<div class="game-container visible" id="gameContainer">
+
+  <!-- IN-GAME HEADER -->
+  <header class="game-header-inner">
+    <div class="logo">CYPHER<span>//</span>CTF</div>
+    <nav class="header-nav-inner" aria-label="Main navigation">
+      <a href="#parts-section" class="nav-link" id="nav-parts-section">PARTS</a>
+    </nav>
+    <div class="header-right-inner">
+      <!-- ===== CAPTURED FLAGS WIDGET ===== -->
+      <div class="flags-widget" id="flagsWidget">
+        <button class="flags-btn" id="flagsBtn" aria-label="Captured flags">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/>
+            <line x1="4" y1="22" x2="4" y2="15"/>
+          </svg>
+          <span id="flagsCount">0/4</span>
+        </button>
+        <div class="flags-dropdown" id="flagsDropdown">
+          <div class="flags-dropdown-header">CAPTURED FLAGS</div>
+          <div id="flagsList">
+            <div class="flags-empty">No flags captured yet</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="theme-toggle" id="theme-btn" aria-label="Toggle theme">
+        <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- PROGRESS STRIP -->
+  <div class="progress-strip" id="progress-strip">
+    <span class="ps-label">PROGRESS</span>
+    <div class="ps-track">
+      <div class="ps-step">
+        <button class="ps-node active" id="ps-node-0" data-tip="Part 1 — Forgot Password (Rate Limit Bypass)">
+          <span class="ps-num">1</span>
+          <span class="ps-tip">Part 1 — Forgot Password (Rate Limit Bypass)</span>
+        </button>
+        <div class="ps-line" id="ps-line-0"></div>
+      </div>
+      <div class="ps-step">
+        <button class="ps-node" id="ps-node-1" data-tip="Part 2 — Profile Viewer (Cache Poisoning)">
+          <span class="ps-num">2</span>
+          <span class="ps-tip">Part 2 — Profile Viewer (Cache Poisoning)</span>
+        </button>
+        <div class="ps-line" id="ps-line-1"></div>
+      </div>
+      <div class="ps-step last">
+        <button class="ps-node" id="ps-node-2" data-tip="Part 3 — Product ID (Union SQLi)">
+          <span class="ps-num">3</span>
+          <span class="ps-tip">Part 3 — Product ID (Union SQLi)</span>
+        </button>
+      </div>
+    </div>
+    <span class="ps-pct" id="ps-pct">0%</span>
+  </div>
+
+  <!-- HERO -->
+  <main class="hero" id="hero">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-tag">
+      <span class="tag-dot" aria-hidden="true"></span>
+      // FLAGFORGE CTF — SUB-CHALLENGE
+    </div>
+    <h1 class="hero-h1">
+      <span class="line-1"><span class="w-can">CAN </span><span class="w-you">YOU</span></span>
+      <span class="line-2"><span class="w-find">FIND </span><span class="w-the">THE </span><span class="w-flaw">FLAW?</span></span>
+    </h1>
+    <p class="hero-sub">Three parts. Three real-world vulnerabilities. Rate-limit bypass, cache poisoning, and Union SQL injection. Submit each flag as you find it.</p>
+    <button class="btn btn-cta" id="start-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <polyline points="13 17 18 12 13 7"/>
+        <polyline points="6 17 11 12 6 7"/>
+      </svg>
+      START CHALLENGE
+    </button>
+  </main>
+
+  <!-- PARTS SECTION -->
+  <section class="stages-section" id="parts-section">
+    <div class="section-title">// CHALLENGE PARTS</div>
+    <div class="stage-grid" id="stages"></div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="game-footer">
+    <div class="footer-left">// CAN YOU FIND THE FLAW — Ethical CTF playground</div>
+    <div class="footer-center">Made by <strong>Sakar</strong> &amp; <strong>Roshni</strong></div>
+    <div class="footer-right">◆ ACTIVE SESSION</div>
+  </footer>
+
+</div><!-- /game-container -->
+
+{% include 'footer.html' %}

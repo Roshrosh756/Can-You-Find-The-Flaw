@@ -1,0 +1,40 @@
+from flask import Blueprint, request, jsonify
+from collections import defaultdict
+
+hints_bp = Blueprint('hints', __name__)
+
+HINTS = {
+    1: [
+        "The rate limiter uses your IP address to track attempts. Can you make it see a different IP each time without actually changing your network?",
+        "There's an internal endpoint that might tell you the admin's secret answer. Try requesting it with a header that suggests you're an admin.",
+        "The server trusts the last IP in the X-Forwarded-For header. Sending multiple IPs lets you cycle through them to avoid the limit.",
+        "The hidden endpoint returns a pet name. That name is the answer you need for the password reset question."
+    ],
+    2: [
+        "The server uses a proxy that can rewrite the request path based on a header. But the cache key might not include that header.",
+        "Try adding a header like X-Original-URL when requesting the profile page. What happens if you point it to a different path?",
+        "The proxy caches the response under the original URL, not the rewritten one. The first request stores data, the second retrieves it.",
+        "Request the profile with the rewrite header set to the flag endpoint, then request the profile normally – the flag will be served from cache."
+    ],
+    3: [
+        "The 'id' parameter is inserted directly into an SQL query. Can you break the query to add your own logic?",
+        "A UNION SELECT lets you combine results from another table. You need to match the number of columns – start with 3.",
+        "This is a PostgreSQL database. List all tables with: UNION SELECT 1, table_name, 3 FROM information_schema.tables WHERE table_schema='public'. Look for a table that might hold a secret.",
+        "Once you find the table (flag_table) and its column (flag), extract it with a UNION SELECT and submit it, e.g. ?id=1 UNION SELECT 1, flag, 3 FROM flag_table--"
+    ]
+}
+
+# In-memory counter per (IP, stage)
+hint_counter = defaultdict(lambda: defaultdict(int))
+
+@hints_bp.route('/hint/<int:stage>', methods=['GET'])
+def get_hint(stage):
+    ip = request.remote_addr
+    count = hint_counter[ip][stage]
+    hint_counter[ip][stage] = count + 1
+
+    if stage not in HINTS:
+        return jsonify({'error': 'Invalid stage'}), 400
+
+    idx = min(count, len(HINTS[stage]) - 1)
+    return jsonify({'hint': HINTS[stage][idx]})
